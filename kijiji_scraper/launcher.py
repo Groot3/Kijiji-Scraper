@@ -85,11 +85,14 @@ def main():
         exclude_words = url_dict.get("exclude", [])
 
         print("Scraping: %s"%url)
-        if len(exclude_words):
-            print("Excluding: " + ", ".join(exclude_words))
+        try:
+            if len(exclude_words):
+                print("Excluding: " + ", ".join(exclude_words))
 
-        kijiji_scraper.set_exclude_list(exclude_words)
-        ads, email_title = kijiji_scraper.scrape_kijiji_for_ads(url)
+            kijiji_scraper.set_exclude_list(exclude_words)
+            ads, email_title = kijiji_scraper.scrape_kijiji_for_ads(url)
+        except:
+            print("Nothing excluded.")
 
         info_string = "Found %s new ads"%len(ads) \
             if len(ads) != 1 else "Found 1 new ad"
